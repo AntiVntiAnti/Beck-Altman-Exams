@@ -14,6 +14,9 @@ def add_beck_data(main_window_instance, widget_names, db_insert_method):
 
     Returns:
         None
+
+    Raises:
+        Exception: If there is an error getting the value from a widget or inserting data into the database.
     """
     widget_methods = {
         widget_names['beck_date']: (None, 'date', "yyyy-MM-dd"),

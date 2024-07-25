@@ -68,6 +68,7 @@ class DataManager:
         """
         Sets up the necessary tables in the database.
 
+        This method calls the setup_beck_table() and setup_altman_table() methods to create the required tables in the database.
         """
         self.setup_beck_table()
         self.setup_altman_table()
@@ -78,12 +79,14 @@ class DataManager:
 
         This method creates a table named 'altman_table' in the database with the following columns:
         - id: INTEGER (Primary Key, Autoincrement)
-        - mental_mental_date: TEXT
-        - mental_mental_time: TEXT
-        - mood_slider: INTEGER
-        - mania_slider: INTEGER
-        - depression_slider: INTEGER
-        - mixed_risk_slider: INTEGER
+        - altman_date: TEXT
+        - altman_time: TEXT
+        - altmans_sleep: INTEGER
+        - altmans_speech: INTEGER
+        - altmans_activity: INTEGER
+        - altmans_cheer: INTEGER
+        - altmans_confidence: INTEGER
+        - altmans_summary: INTEGER
 
         If the table already exists, this method does nothing.
 
@@ -91,17 +94,17 @@ class DataManager:
             None
         """
         if not self.query.exec(f"""
-                            CREATE TABLE IF NOT EXISTS altman_table (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                             altman_date TEXT,
-                             altman_time TEXT,
-                             altmans_sleep INTEGER,
-                             altmans_speech INTEGER,
-                             altmans_activity INTEGER,
-                             altmans_cheer INTEGER,
-                             altmans_confidence INTEGER,
-                             altmans_summary INTEGER
-                            )"""):
+                        CREATE TABLE IF NOT EXISTS altman_table (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        altman_date TEXT,
+                        altman_time TEXT,
+                        altmans_sleep INTEGER,
+                        altmans_speech INTEGER,
+                        altmans_activity INTEGER,
+                        altmans_cheer INTEGER,
+                        altmans_confidence INTEGER,
+                        altmans_summary INTEGER
+                        )"""):
             logger.error(f"Error creating table: altman_table",
                          self.query.lastError().text())
     
@@ -183,7 +186,7 @@ class DataManager:
         - pessimism: INTEGER
         - victimhood: INTEGER
         - sleep: INTEGER
-            
+                
         If the table already exists, this method does nothing.
 
         Returns:
@@ -246,7 +249,7 @@ class DataManager:
             pessimism (int): The level of pessimism.
             victimhood (int): The level of victimhood.
             sleep (int): The level of sleep.
-            beck_summary (int): the summ
+            beck_summary (int): The summary of the Beck entry.
 
         Returns:
             None

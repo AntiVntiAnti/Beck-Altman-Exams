@@ -25,13 +25,7 @@ from utility.app_operations.frameless_window import (
 from utility.app_operations.window_controls import (
     WindowController)
 from utility.app_operations.show_hide import toggle_views
-# app ops
-# from utility.widgets_set_widgets.slider_spinbox_connections import (
-#     connect_slider_spinbox)
 
-# ////////////////////////////////////////////////////////////////////////////////////////
-# DATABASE Magicks w/ Wizardry & Necromancy
-# ////////////////////////////////////////////////////////////////////////////////////////
 # Database connections
 from database.database_manager import (
     DataManager)
@@ -125,45 +119,98 @@ class MainWindow(FramelessWindow, QtWidgets.QMainWindow, Ui_MainWindow):
     
     def update_beck_summary(self):
         """
-        updates the averages of the sliders in the wellbeing and pain module such that
-        the overall is the avg of the whole
-        :return:
+        Updates the averages of the sliders in the wellbeing and pain module such that
+        the overall is the average of the whole.
+
+        :return: None
         """
         try:
-            
             values = [slider.value() for slider in
                       [self.sadness, self.outlook, self.guilt, self.solitude, self
                       .sexdrive, self.hygiene, self.decisiveness, self.effort, self
                        .interest, self.pessimism, self.victimhood, self.sleep, ] if
                       slider.value() > 0]
-            
+
             sumabitch = sum(values)
-            
+
             self.beck_summary.setValue(int(sumabitch))
-        
+
         except Exception as e:
             logger.error(f"{e}", exc_info=True)
     
     def set_hidden(self) -> None:
+        """
+        Hides the 'hidemeframe' and 'hidemeframe_2' widgets.
+
+        This method sets the visibility of the 'hidemeframe' and 'hidemeframe_2'
+        widgets to False, effectively hiding them from view.
+
+        Returns:
+            None
+        """
         self.hidemeframe.setVisible(False)
         self.hidemeframe_2.setVisible(False)
     
     def switch_to_page0(self):
+        """
+        Switches the current widget to the 'beckPage' and adjusts the window size.
+
+        This method sets the current widget of the stackedWidget to the 'beckPage' widget,
+        and adjusts the size of the window to a fixed size of 445x170 pixels.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         self.stackedWidget.setCurrentWidget(self.beckPage)
         self.setFixedSize(445, 170)
         self.resize(445, 170)
     
     def switch_to_page1(self):
+        """
+        Switches the current widget to the altmanPage and adjusts the window size.
+
+        This method sets the current widget of the stackedWidget to the altmanPage,
+        and adjusts the window size to a fixed size of 445x170 pixels.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         self.stackedWidget.setCurrentWidget(self.altmanPage)
         self.setFixedSize(445, 170)
         self.resize(445, 170)
     
     def switch_to_page2(self):
+        """
+        Switches the current widget to the altmanDataPage and sets the fixed size and resize dimensions.
+
+        This method is used to switch the current widget to the altmanDataPage and adjust the size of the window.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         self.stackedWidget.setCurrentWidget(self.altmanDataPage)
         self.setFixedSize(850, 445)
         self.resize(850, 445)
 
     def switch_to_page4(self):
+        """
+        Switches the current widget to the beckDataPage and sets the fixed size and resize dimensions.
+
+        Parameters:
+            None
+
+        Returns:
+            None
+        """
         self.stackedWidget.setCurrentWidget(self.beckDataPage)
         self.setFixedSize(850, 445)
         self.resize(850, 445)
@@ -307,9 +354,6 @@ class MainWindow(FramelessWindow, QtWidgets.QMainWindow, Ui_MainWindow):
         except Exception as e:
             logger.error(f"An Error has occurred {e}", exc_info=True)
         
-        #########################################################################
-        # ALTMAN summer of summation
-        #########################################################################
         self.altmans_summary.setEnabled(False)
         for slider in [
             self.altmans_sleep, self.altmans_speech, self.altmans_activity, self.
@@ -324,21 +368,20 @@ class MainWindow(FramelessWindow, QtWidgets.QMainWindow, Ui_MainWindow):
     
     def update_altmans_summary(self):
         """
-        updates the averages of the sliders in the wellbeing and pain module such that
-        the overall is the avg of the whole
-        :return:
+        Updates the averages of the sliders in the wellbeing and pain module such that
+        the overall is the average of the whole.
+
+        :return: None
         """
         try:
-            
             values = [slider.value() for slider in
-                      [self.altmans_sleep, self.altmans_speech, self.altmans_activity, self.
-                      altmans_cheer, self.altmans_confidence, ] if
-                      slider.value() > 0]
-            
+                      [self.altmans_sleep, self.altmans_speech, self.altmans_activity, self.altmans_cheer,
+                       self.altmans_confidence] if slider.value() > 0]
+
             altmans_sum = sum(values)
-            
+
             self.altmans_summary.setValue(int(altmans_sum))
-        
+
         except Exception as e:
             logger.error(f"{e}", exc_info=True)
             
@@ -389,26 +432,26 @@ class MainWindow(FramelessWindow, QtWidgets.QMainWindow, Ui_MainWindow):
         )
         
     def save_state(self):
-        """
-        Saves the window geometry state and window state.
+            """
+            Saves the window geometry state and window state.
 
-        This method saves the current geometry and state of the window
-        using the QSettings object. It saves the window geometry state
-        and the window state separately.
+            This method saves the current geometry and state of the window
+            using the QSettings object. It saves the window geometry state
+            and the window state separately.
 
-        Raises:
-            Exception: If there is an error saving the window geometry state
-                       or the window state.
+            Raises:
+                Exception: If there is an error saving the window geometry state
+                           or the window state.
 
-        """
-        try:
-            self.settings.setValue("geometry", self.saveGeometry())
-        except Exception as e:
-            logger.error(f"Error saving the minds_module geo{e}", exc_info=True)
-        try:
-            self.settings.setValue("windowState", self.saveState())
-        except Exception as e:
-            logger.error(f"Error saving the minds_module geo{e}", exc_info=True)
+            """
+            try:
+                self.settings.setValue("geometry", self.saveGeometry())
+            except Exception as e:
+                logger.error(f"Error saving the minds_module geo{e}", exc_info=True)
+            try:
+                self.settings.setValue("windowState", self.saveState())
+            except Exception as e:
+                logger.error(f"Error saving the minds_module geo{e}", exc_info=True)
     
     def restore_state(self) -> None:
         """
@@ -433,18 +476,18 @@ class MainWindow(FramelessWindow, QtWidgets.QMainWindow, Ui_MainWindow):
             logger.error(f"Error restoring WINDOW STATE {e}", exc_info=True)
     
     def closeEvent(self, event: QCloseEvent) -> None:
-        """
-        Event handler for the close event of the window.
+            """
+            Event handler for the close event of the window.
 
-        Saves the state before closing the window.
+            Saves the state before closing the window.
 
-        Args:
-            event (QCloseEvent): The close event object.
+            Args:
+                event (QCloseEvent): The close event object.
 
-        Returns:
-            None
-        """
-        try:
-            self.save_state()
-        except Exception as e:
-            logger.error(f"error saving state during closure: {e}", exc_info=True)
+            Returns:
+                None
+            """
+            try:
+                self.save_state()
+            except Exception as e:
+                logger.error(f"error saving state during closure: {e}", exc_info=True)

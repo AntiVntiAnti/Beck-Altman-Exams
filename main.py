@@ -8,14 +8,13 @@ from ui.main_ui import res
 
 def run_app():
     """
-        Runs the application.
+    Runs the application.
 
-        This function initializes the application, creates the main window,
-        and starts the event loop.
+    This function initializes the application, creates the main window,
+    and starts the event loop.
 
-        Raises:
-            Exception: If an error occurs during the execution of the application.
-
+    Raises:
+        Exception: If an error occurs during the execution of the application.
     """
     logger.info("ENTER BY PORTAL START YES!")
     try:
